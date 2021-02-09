@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import JobList from './pages/Job.vue'
+    import JobList from './components/JobList.vue'
 
     export default {
         name: 'App',
