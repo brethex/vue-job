@@ -1,7 +1,11 @@
 <template>
     <div class="p-8 flex flex-row space-x-6">
         <div class="w-1/2">
-            <div v-for="(job, index) in jobs" :key="index" class="p-6 shadow mb-6 bg-white space-y-4 md:space-y-1" :class="{ '-mr-6 rounded-tr-none rounded-br-none border-l-8 border-blue-600 pl-4': index == activeIndex }">
+            <div class="mb-6">
+                <google-sign-in-button />
+            </div>
+
+            <div v-for="(job, index) in jobs" :key="index" class="p-6 shadow bg-white space-y-4 md:space-y-1" :class="[{ '-mr-6 rounded-tr-none rounded-br-none border-l-8 border-blue-600 pl-4': index == activeIndex }, { 'mb-6': index != jobs.length - 1 }]">
                 <div @click="previewPDF(job.pdf); setActiveIndex(index)" class="font-bold text-2xl mb-3 text-gray-600 cursor-pointer" :class="{ 'text-blue-600': index == activeIndex }">{{ job.position }}</div>
                 <div class="flex flex-col md:flex-row space-x-2">
                     <label class="font-semibold w-full md:w-48 flex-shrink-0">Program: </label>
@@ -40,7 +44,13 @@
 </template>
 
 <script>
+    import GoogleSignInButton from './GoogleSignInButton'
+
     export default {
+        components: {
+            GoogleSignInButton,
+        },
+
         data () {
             return {
                 jobs: null,
