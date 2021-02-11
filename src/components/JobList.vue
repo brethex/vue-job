@@ -35,6 +35,11 @@
                     <label class="font-semibold w-full md:w-48 flex-shrink-0">Deadline: </label>
                     <div class="text-lg md:text-base m-0">{{ job.deadline }}</div>
                 </div>
+
+                <div class="flex space-x-4">
+                    <button @click="previewPDF(job.pdf); setActiveIndex(index)" class="text-blue-600 hover:text-blue-800 hover:underline mt-6 px-4 py-2 border rounded-sm">Details</button>
+                    <apply-now />
+                </div>
             </div>
         </div>
         <div v-if="pdf" class="w-1/2 max-h-screen sticky top-0 -mb-8" style="background-color: #d4d4d4">
@@ -45,10 +50,12 @@
 
 <script>
     import GoogleSignInButton from './GoogleSignInButton'
+    import ApplyNow from './ApplyNow.vue'
 
     export default {
         components: {
             GoogleSignInButton,
+            ApplyNow,
         },
 
         data () {

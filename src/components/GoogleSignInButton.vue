@@ -28,6 +28,6 @@
 
 		mounted () {
 			this.renderButton()
-		}
+		},
 	}
 </script>
