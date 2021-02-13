@@ -23,11 +23,15 @@
 
 			onFailure (error) {
 				console.log(error)
+			},
+
+			handleRenderButton () {
+				window.gapi.load('signin2', this.renderButton)
 			}
 		},
 
 		mounted () {
-			this.renderButton()
+			this.handleRenderButton()
 		},
 	}
 </script>

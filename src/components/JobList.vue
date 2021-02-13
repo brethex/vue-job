@@ -38,7 +38,7 @@
 
                 <div class="flex space-x-4">
                     <button @click="previewPDF(job.pdf); setActiveIndex(index)" class="text-blue-600 hover:text-blue-800 hover:underline mt-6 px-4 py-2 border rounded-sm">Details</button>
-                    <apply-now />
+                    <apply-now :job-id="job.id" />
                 </div>
             </div>
         </div>
