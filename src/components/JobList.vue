@@ -2,7 +2,9 @@
     <div class="p-8 flex flex-row space-x-6">
         <div class="w-1/2">
             <div class="mb-6">
-                <google-sign-in-button />
+                <signed-in v-if="isSignedIn" />
+                <google-sign-in-button v-else />
+                <a @click.prevent="signOut" href="#">Sign Out</a>
             </div>
 
             <div v-for="(job, index) in jobs" :key="index" class="p-6 shadow bg-white space-y-4 md:space-y-1" :class="[{ '-mr-6 rounded-tr-none rounded-br-none border-l-8 border-blue-600 pl-4': index == activeIndex }, { 'mb-6': index != jobs.length - 1 }]">
@@ -50,11 +52,21 @@
 
 <script>
     import GoogleSignInButton from './GoogleSignInButton'
+    import SignedIn from './Profile'
     import ApplyNow from './ApplyNow.vue'
 
     export default {
+        props: {
+            isSignedIn: {
+                default () {
+                    return false
+                }
+            }
+        },
+
         components: {
             GoogleSignInButton,
+            SignedIn,
             ApplyNow,
         },
 
@@ -90,6 +102,13 @@
 
             setActiveIndex (index) {
                 this.activeIndex = index
+            },
+
+            signOut () {
+                var auth2 = window.gapi.auth2.getAuthInstance();
+                    auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                })
             }
         },
 
