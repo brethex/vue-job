@@ -7,7 +7,10 @@
 				<div class="text-sm text-gray-400">{{ profile.email }}</div>
 			</div>
 		</div>
-		<button @click.prevent="signOut" class="hover:text-blue-700 hover:underline px-4 py-2 focus:outline-none">Sign Out</button>
+		<div class="space-x-2 flex items-center">
+			<button @click="revokeToken" class="hover:text-blue-700 hover:underline px-4 py-2">Revoke Access</button>
+			<button @click.prevent="signOut" class="hover:text-blue-700 hover:underline px-4 py-2 focus:outline-none">Sign Out</button>
+		</div>
 	</div>
 </template>
 
@@ -51,6 +54,10 @@
 
 			initAuth2 () {
 				window.gapi.load('auth2', this.getProfile())
+			},
+
+			revokeToken () {
+				window.gapi.auth2.getAuthInstance().disconnect()
 			}
 		},
 

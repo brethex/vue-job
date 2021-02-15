@@ -1,6 +1,5 @@
 <template>
 	<div class="home">
-		<button @click="revokeToken">Revoke</button>
 		<job-list :is-signed-in="is_signed_in" />
 	</div>
 </template>
@@ -38,10 +37,6 @@
 			updateSignInStatus (isSignedIn) {
 				this.is_signed_in = isSignedIn
 			},
-
-			revokeToken () {
-				window.gapi.auth2.getAuthInstance().disconnect()
-			}
 		},
 
 		mounted () {
