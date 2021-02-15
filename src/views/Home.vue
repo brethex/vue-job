@@ -24,7 +24,7 @@
 			initClient () {
 				window.gapi.load('client:auth2', () => {
                     window.gapi.client.init({
-                        'scope': 'https://www.googleapis.com/auth/spreadsheet',
+                        'scope': 'https://www.googleapis.com/auth/spreadsheet https://www.googleapis.com/auth/drive.readonly',
                         'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4']
                     }).then(() => {
                         const google_auth = window.gapi.auth2.getAuthInstance()
