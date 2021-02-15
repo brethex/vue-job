@@ -1,5 +1,6 @@
 <template>
 	<div class="home">
+		<button @click="revokeToken">Revoke</button>
 		<job-list :is-signed-in="is_signed_in" />
 	</div>
 </template>
@@ -24,8 +25,7 @@
 			initClient () {
 				window.gapi.load('client:auth2', () => {
                     window.gapi.client.init({
-                        'scope': 'https://www.googleapis.com/auth/spreadsheet https://www.googleapis.com/auth/drive.readonly',
-                        'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4']
+                        discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4']
                     }).then(() => {
                         const google_auth = window.gapi.auth2.getAuthInstance()
                         
@@ -37,6 +37,10 @@
 
 			updateSignInStatus (isSignedIn) {
 				this.is_signed_in = isSignedIn
+			},
+
+			revokeToken () {
+				window.gapi.auth2.getAuthInstance().disconnect()
 			}
 		},
 
