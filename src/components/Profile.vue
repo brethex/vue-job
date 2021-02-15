@@ -1,13 +1,13 @@
 <template>
-	<div>
-		<div class="flex space-x-4 px-4 py-2 bg-white items-center">
+	<div class="flex bg-white justify-between shadow rounded-sm">
+		<div class="flex space-x-4 px-4 py-2 items-center">
 			<img alt="profile" class="rounded-full h-9 w-9" :src="profile.image_url">
 			<div>
 				<div>{{ profile.full_name }}</div>
 				<div class="text-sm text-gray-400">{{ profile.email }}</div>
 			</div>
 		</div>
-		<a @click.prevent="signOut" href="#">Sign Out</a>
+		<button @click.prevent="signOut" class="hover:text-blue-700 hover:underline px-4 py-2">Sign Out</button>
 	</div>
 </template>
 
@@ -28,7 +28,7 @@
 		methods: {
 			getProfile () {
 				const authInstance = window.gapi.auth2.getAuthInstance()
-				const user = authInstance.currentUser().get()
+				const user = authInstance.currentUser.get()
 				const profile = user.getBasicProfile()
 
 				this.profile.full_name = profile.getName()

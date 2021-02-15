@@ -2,11 +2,12 @@
     <div class="p-8 flex flex-row space-x-6">
         <div class="w-1/2">
             <div class="mb-6">
-                <signed-in v-if="isSignedIn" />
+                <div v-if="isSignedIn == null">
+                    Loading...
+                </div>
+                <signed-in v-else-if="isSignedIn" />
                 <google-sign-in-button v-else />
-                <a @click.prevent="signOut" href="#">Sign Out</a>
             </div>
-
             <div v-for="(job, index) in jobs" :key="index" class="p-6 shadow bg-white space-y-4 md:space-y-1" :class="[{ '-mr-6 rounded-tr-none rounded-br-none border-l-8 border-blue-600 pl-4': index == activeIndex }, { 'mb-6': index != jobs.length - 1 }]">
                 <div @click="previewPDF(job.pdf); setActiveIndex(index)" class="font-bold text-2xl mb-3 text-gray-600 cursor-pointer" :class="{ 'text-blue-600': index == activeIndex }">{{ job.position }}</div>
                 <div class="flex flex-col md:flex-row space-x-2">
@@ -57,11 +58,7 @@
 
     export default {
         props: {
-            isSignedIn: {
-                default () {
-                    return false
-                }
-            }
+            isSignedIn: Boolean
         },
 
         components: {
@@ -106,7 +103,7 @@
 
             signOut () {
                 var auth2 = window.gapi.auth2.getAuthInstance();
-                    auth2.signOut().then(function () {
+                auth2.signOut().then(function () {
                     console.log('User signed out.');
                 })
             }
