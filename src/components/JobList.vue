@@ -2,10 +2,7 @@
     <div class="p-8 flex flex-row space-x-6">
         <div class="w-1/2">
             <div class="mb-6">
-                <div v-if="isSignedIn == null">
-                    Loading...
-                </div>
-                <signed-in v-else-if="isSignedIn" />
+                <signed-in @input="getUserProfile" v-if="isSignedIn" />
                 <google-sign-in-button v-else />
             </div>
             <div v-for="(job, index) in jobs" :key="index" class="p-6 shadow bg-white space-y-4 md:space-y-1" :class="[{ '-mr-6 rounded-tr-none rounded-br-none border-l-8 border-blue-600 pl-4': index == activeIndex }, { 'mb-6': index != jobs.length - 1 }]">
@@ -25,7 +22,7 @@
                 <div v-if="job.engagement_period" class="flex flex-col md:flex-row space-x-2">
                     <label class="font-semibold w-full md:w-48 flex-shrink-0">Period of Enagagement: </label>
                     <div class="text-lg md:text-base m-0">{{ job.engagement_period }}</div>
-                </div>
+                </div> 
                 <div class="flex flex-col md:flex-row space-x-2">
                     <label class="font-semibold w-full md:w-48 flex-shrink-0">Salary Grade: </label>
                     <div class="text-lg md:text-base m-0">{{ job.salary_grade }}</div>
@@ -41,7 +38,7 @@
 
                 <div class="flex space-x-4">
                     <button @click="previewPDF(job.pdf); setActiveIndex(index)" class="text-blue-600 hover:text-blue-800 hover:underline mt-6 px-4 py-2 border rounded-sm">Details</button>
-                    <apply-now :job-id="job.id" />
+                    <apply-now :job-id="job.id" :profile="profile" />
                 </div>
             </div>
         </div>
@@ -72,6 +69,7 @@
                 jobs: null,
                 pdf: null,
                 activeIndex: null,
+                profile: null,
             }
         },
 
@@ -106,6 +104,10 @@
                 auth2.signOut().then(function () {
                     console.log('User signed out.');
                 })
+            },
+
+            getUserProfile (value) {
+                this.profile = value
             }
         },
 

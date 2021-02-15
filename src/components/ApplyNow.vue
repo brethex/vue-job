@@ -8,6 +8,7 @@
     export default {
         props: {
             jobId: [Number, String],
+            profile: Object,
         },
 
         methods: {
@@ -20,8 +21,9 @@
                         [
                             "",
                             this.jobId,
-                            "",
-                            ""
+                            this.profile.email,
+                            this.profile.given_name,
+                            this.profile.family_name
                         ]
                     ]
                 }).then(function (response) {

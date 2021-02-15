@@ -7,7 +7,7 @@
 				<div class="text-sm text-gray-400">{{ profile.email }}</div>
 			</div>
 		</div>
-		<button @click.prevent="signOut" class="hover:text-blue-700 hover:underline px-4 py-2">Sign Out</button>
+		<button @click.prevent="signOut" class="hover:text-blue-700 hover:underline px-4 py-2 focus:outline-none">Sign Out</button>
 	</div>
 </template>
 
@@ -22,6 +22,8 @@
 					image_url: null,
 					email: null,
 				},
+
+				is_signed_in: false,
 			}
 		},
 
@@ -35,7 +37,9 @@
 				this.profile.given_name = profile.getGivenName()
 				this.profile.family_name = profile.getFamilyName()
 				this.profile.image_url = profile.getImageUrl()
-				this.profile.email = profile.getEmail()				
+				this.profile.email = profile.getEmail()		
+
+				this.is_signed_in = authInstance.isSignedIn.get()		
 			},
 
             signOut () {
@@ -52,6 +56,12 @@
 
 		mounted () {
 			this.initAuth2()
+		},
+
+		watch: {
+			is_signed_in () {
+				this.$emit('input', this.profile)
+			}
 		}
 	}
 </script>
